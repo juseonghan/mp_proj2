@@ -3,8 +3,12 @@
 (someday we can write some sort of introduction)
 
 NOTE FOR JOHN/ASHLEY: prior to pushing, please run 
-`rm requirements.txt`
-`conda list -e > requirements.txt`
+
+```
+rm requirements.txt
+conda list -e > requirements.txt
+```
+
 
 to update any conda packages that were installed in the environment
 
