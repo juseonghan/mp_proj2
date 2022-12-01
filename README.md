@@ -1,14 +1,13 @@
-# Machine Perception Project 2: Structure from Motion
+# Machine Perception Project 2: Structure from Motion by John Han and Ashley Tsang
 
 (someday we can write some sort of introduction)
-by John Han and Ashley Tsang
 
-## Dependencies and Setup
+## Setting up Dependencies and Running Code
 We used Python 3.6 and conda environment for this project. Please create a conda environment with 
 
 `conda create --name (env name) --file requirements.txt`
 
-and run 
+to install the dependencies. To run our project, type
 
 `python main.py --data castle`
 
