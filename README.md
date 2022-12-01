@@ -15,15 +15,21 @@ to update any conda packages that were installed in the environment
 ## Setting up Dependencies and Running Code
 We used Python 3.6 and conda environment for this project. Please create a conda environment with 
 
-`conda create --name (env name) --file requirements.txt`
+```
+conda create --name (env name) --file requirements.txt
+```
 
 to install the dependencies. To run our project, type
 
-`python main.py --data castle`
+```
+python main.py --data castle
+```
 
 to run Structure from Motion using the castle dataset or
 
-`python main.py --data medusa`
+```
+python main.py --data medusa
+```
 
 to run SfM using the medusa video. 
 
