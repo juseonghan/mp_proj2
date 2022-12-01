@@ -2,6 +2,12 @@
 
 (someday we can write some sort of introduction)
 
+NOTE FOR JOHN/ASHLEY: prior to pushing, please run 
+`rm requirements.txt`
+`conda list -e > requirements.txt`
+
+to update any conda packages that were installed in the environment
+
 ## Setting up Dependencies and Running Code
 We used Python 3.6 and conda environment for this project. Please create a conda environment with 
 
@@ -16,3 +22,4 @@ to run Structure from Motion using the castle dataset or
 `python main.py --data medusa`
 
 to run SfM using the medusa video. 
+
