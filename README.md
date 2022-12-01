@@ -10,13 +10,13 @@ conda list -e > requirements.txt
 ```
 
 
-to update any conda packages that were installed in the environment
+to update any conda packages that were installed/uninstalled in the environment.
 
 ## Setting up Dependencies and Running Code
 We used Python 3.6 and conda environment for this project. Please create a conda environment with 
 
 ```
-conda create --name (env name) --file requirements.txt
+conda create --name (env name) --file requirements.txt python=3.6
 ```
 
 to install the dependencies. To run our project, type
