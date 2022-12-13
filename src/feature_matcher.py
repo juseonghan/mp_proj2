@@ -1,7 +1,8 @@
 import cv2 as cv
 import numpy as np
+import matplotlib.pyplot as plt 
 
-def match_feature_points(frames):
+def match_feature_points(frames, input):
     # # params for ShiTomasi corner detection
     # feature_params = dict(maxCorners = 300,
     #                     qualityLevel = 0.3,
@@ -55,30 +56,42 @@ def match_feature_points(frames):
         img1 = frames[i]
         img2 = frames[i+1]
 
+        # only consider a fixed ROI in the image.
+        # medusa is 720 x 576 pixels
+        # castle is 768 x 576 pixels
+        # if (input == "medusa"):
+        #     img1 = img1[100:350,250:600,:]
+        
+        # if i == 0:
+        #     plt.imshow(img1)
+        #     plt.show()
+
         kp1, kp2, desc1, desc2 = get_features(img1, img2, P)
 
         # match features
         flann = cv.FlannBasedMatcher(index_params, search_params)
         matches = flann.knnMatch(desc1, desc2, k=2)
 
+        # # sort matches by best
+        # matches = sorted(matches, key= lambda x:x.distance)
+
         temp_src = np.zeros((2, P))
         temp_dest = np.zeros((2, P))
-        for k, (m,n) in enumerate(matches):
+            
+        k = 0
+        for (m,n) in matches:
             src_pt = kp1[m.queryIdx].pt  # currently a 2 element tuple
             dest_pt = kp2[m.trainIdx].pt
             temp_src[:, k] = np.array([ src_pt[0], src_pt[1] ])
             temp_dest[:, k] = np.array([ dest_pt[0], dest_pt[1] ])
-            if k == 999:
+            if k == P-1:
                 break
+            k = k + 1
 
         result.append(temp_src)
         result.append(temp_dest)
 
     return result
-    
-        
-        
-
 
 def get_features(img1, img2, P):
 
@@ -89,7 +102,3 @@ def get_features(img1, img2, P):
     kp2, desc2 = sift.detectAndCompute(img2, None)
 
     return kp1, kp2, desc1, desc2 
-    
-
-    
-    return 

@@ -1,9 +1,9 @@
 import argparse
-import matplotlib.pyplot as plt
 
 from util import *
 from reader import *
 from feature_matcher import match_feature_points
+from point_cloud import SfM_Drawer
 
 def main():
 
@@ -21,11 +21,13 @@ def main():
         return
 
     # start! 
+    np.set_printoptions(precision=3, suppress=True)
+
     print('--------- matching points ---------')
     print('No. of frames:', len(frames))
 
-    points = match_feature_points(frames)
-    print('Found:', points[0].shape[1], 'points')
+    points = match_feature_points(frames, args.data)
+    print('Matching:', points[0].shape[1], 'points')
 
     print('--------- calculating measurement matrix ---------')
     W = get_measurement_matrix(points)
@@ -36,16 +38,29 @@ def main():
     print('--------- calculating affine motion and shape matrices ---------')
     O1, sigma, O2 = np.linalg.svd(W_tilde)
     R_hat, S_hat = calculate_LT_RS(O1, sigma, O2)
+    print('R^hat:')
+    print(R_hat)
+    print("S^hat:")
+    print(S_hat)
 
     print('--------- affine correction optimization ---------')
     Q = calculate_Q(R_hat, S_hat)
+    print("Affine ambiguity correction matrix Q:")
+    print(Q)
 
     print('--------- calculate shape and motion ---------')
     R, S = get_shape_and_motion(R_hat, S_hat, Q)
+    print("Motion matrix R:")
+    print(R)
+    print("Shape matrix S:")
+    print(S)
 
     print('--------- results saved to ../results/ ---------')
     np.savetxt('../results/R.txt', R, fmt='%.4f')
     np.savetxt('../results/S.txt', S, fmt='%.4f')
+
+    drawer = SfM_Drawer(R, S)
+    drawer.drawSfM()
 
 
 if __name__ == "__main__": 

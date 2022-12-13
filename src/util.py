@@ -6,13 +6,14 @@ def get_measurement_matrix(points):
 
     # points is a list with F elements, each element is a 2xP matrix. 
     # the measurement matrix is a 2FxP matrix.
-    W = np.zeros((2*len(points), points[0].shape[1]))
-
+    F = len(points)
+    W = np.zeros((2*F, points[0].shape[1]))   
+    
     row_num = 0; 
     for points_in_one_frame in points:
         # points_in_one_frame is a 2xP matrix. 
         W[row_num,:] = points_in_one_frame[1,:]
-        W[row_num + len(points),:] = points_in_one_frame[0,:]
+        W[row_num + F,:] = points_in_one_frame[0,:]
         row_num = row_num + 1 
 
     return W
@@ -20,14 +21,16 @@ def get_measurement_matrix(points):
 def get_registered_measurement_matrix(W):
 
     W_tilde = np.zeros_like(W)
+    F = int(W.shape[0]/2)
+    P = int(W.shape[1])
     # loop over every row, i = [0,F)
-    print("F is somehow:", W.shape[0]/2)
-    for i in range(int(W.shape[0]/2)):
 
-        a_f = np.sum(W[i,:]) / W.shape[1]
-        b_f = np.sum(W[i+int(W.shape[0]/2),:]) / W.shape[1]
+    for i in range(F):
+
+        a_f = np.sum(W[i,:]) / P
+        b_f = np.sum(W[i+F,:]) / P
         W_tilde[i,:] = W[i,:] - a_f
-        W_tilde[i+int(W.shape[0]/2),:] = W_tilde[i+int(W.shape[0]/2),:] - b_f
+        W_tilde[i+F,:] = W[i+F,:] - b_f
 
     return W_tilde
 

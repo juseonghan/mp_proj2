@@ -13,13 +13,10 @@ class Solver:
         
         G = np.zeros((3*F, 6)) # 3F x 6 matrix
 
-        for f in range(int(3*F)):
-            if f < F:
-                G[f,:] = self.get_mat(Is[f,:], Is[f,:])
-            elif f < 2*F:
-                G[f,:] = self.get_mat(Js[(f%F),:], Js[(f%F),:])
-            else:
-                G[f,:] = self.get_mat(Is[(f%(2*F)),:], Js[(f%(2*F)),:])
+        for f in range(F):
+            G[f,:] = self.get_mat(Is[f,:], Is[f,:])
+            G[F+f,:] = self.get_mat(Js[f,:], Js[f,:])
+            G[2*F + f,:] = self.get_mat(Is[f,:], Js[f,:])
 
         # c: 3F x 1 
         c = np.vstack(( np.ones((2*F,1)), np.zeros((F,1)) ))
@@ -47,12 +44,9 @@ class Solver:
         l2 = np.linalg.lstsq(G, c, rcond=None)[0]
         l2 = l2.flatten()
 
-        L2 = np.array([[l2[0], l2[1], l2[2]], [l2[1], l2[3], l2[4]], [l2[2], l2[4], l2[5]] ])
+        L2 = np.array([ [l2[0], l2[1], l2[2]], [l2[1], l2[3], l2[4]], [l2[2], l2[4], l2[5]] ])
 
         return np.linalg.cholesky(L2)
-
-
-
 
     def get_mat(self, a,b):
         res = np.array( [a[0]*b[0], a[0]*b[1]+a[1]*b[0], a[0]*b[2]+a[2]*b[0], a[1]*b[1], a[1]*b[2]+a[2]*b[1], a[2]*b[2] ])
