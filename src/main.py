@@ -10,6 +10,7 @@ def main():
     # data read
     parser = argparse.ArgumentParser()
     parser.add_argument("--data", help="castle or medusa", type=str)
+    parser.add_argument("--points", help="number of feature points to track")
     args = parser.parse_args()
 
     if (args.data == "castle"):
@@ -26,7 +27,7 @@ def main():
     print('--------- matching points ---------')
     print('No. of frames:', len(frames))
 
-    points = match_feature_points(frames, args.data)
+    points = match_feature_points(frames, args.data, args.points)
     print('Matching:', points[0].shape[1], 'points')
 
     print('--------- calculating measurement matrix ---------')
@@ -36,12 +37,11 @@ def main():
     print('shape of W_tilde is:', W_tilde.shape)
 
     print('--------- calculating affine motion and shape matrices ---------')
-    O1, sigma, O2 = np.linalg.svd(W_tilde)
-    R_hat, S_hat = calculate_LT_RS(O1, sigma, O2)
-    print('R^hat:')
-    print(R_hat)
-    print("S^hat:")
-    print(S_hat)
+    R_hat, S_hat = calculate_RS(W_tilde)
+    print('R^hat shape:', R_hat.shape)
+    # print(R_hat)
+    print("S^hat shape:", S_hat.shape)
+    # print(S_hat)
 
     print('--------- affine correction optimization ---------')
     Q = calculate_Q(R_hat, S_hat)
@@ -50,17 +50,19 @@ def main():
 
     print('--------- calculate shape and motion ---------')
     R, S = get_shape_and_motion(R_hat, S_hat, Q)
-    print("Motion matrix R:")
-    print(R)
-    print("Shape matrix S:")
-    print(S)
+    print("Motion matrix R shape:", R.shape)
+    # print(R)
+    print("Shape matrix S shape:", S.shape)
+    # print(S)
 
     print('--------- results saved to ../results/ ---------')
     np.savetxt('../results/R.txt', R, fmt='%.4f')
     np.savetxt('../results/S.txt', S, fmt='%.4f')
 
-    drawer = SfM_Drawer(R, S)
-    drawer.drawSfM()
+    # drawer = SfM_Drawer(R, S)
+    # drawer.drawSfM()
+
+    print('mean-squared error between W_tilde and R*S:',calculate_error(W_tilde, R @ S) )
 
 
 if __name__ == "__main__": 

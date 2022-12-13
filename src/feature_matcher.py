@@ -2,7 +2,7 @@ import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt 
 
-def match_feature_points(frames, input):
+def match_feature_points(frames, input, P):
     # # params for ShiTomasi corner detection
     # feature_params = dict(maxCorners = 300,
     #                     qualityLevel = 0.3,
@@ -43,7 +43,7 @@ def match_feature_points(frames, input):
     # SIFT based feature matching
 
     result = [] # will be a list with F elements (one for each frame), with each element being a 2xP numpy array
-    P = 1000
+    P = int(P)
     FLANN_INDEX_KDTREE = 1
     index_params = dict(algorithm=FLANN_INDEX_KDTREE, trees=5)
     search_params = dict(checks=50)
