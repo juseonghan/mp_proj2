@@ -25,10 +25,13 @@ def main():
     print('No. of frames:', len(frames))
 
     points = match_feature_points(frames)
+    print('Found:', points[0].shape[1], 'points')
 
     print('--------- calculating measurement matrix ---------')
     W = get_measurement_matrix(points)
+    print('shape of W is:', W.shape)
     W_tilde = get_registered_measurement_matrix(W)
+    print('shape of W_tilde is:', W_tilde.shape)
 
     print('--------- calculating affine motion and shape matrices ---------')
     O1, sigma, O2 = np.linalg.svd(W_tilde)
@@ -39,6 +42,10 @@ def main():
 
     print('--------- calculate shape and motion ---------')
     R, S = get_shape_and_motion(R_hat, S_hat, Q)
+
+    print('--------- results saved to ../results/ ---------')
+    np.savetxt('../results/R.txt', R, fmt='%.4f')
+    np.savetxt('../results/S.txt', S, fmt='%.4f')
 
 
 if __name__ == "__main__": 
