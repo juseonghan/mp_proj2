@@ -32,12 +32,22 @@ def get_registered_measurement_matrix(W):
     return W_tilde
 
 def calculate_LT_RS(O1, sigma, O2):
-    
+
     # following tomasi and kanade paper
     O1_prime = O1[:,0:3] 
     sigma_prime = sigma[0:3,0:3]
     O2_prime = O2[0:3,:]
-    R_hat = O1_prime @ sqrtm(sigma_prime)
-    S_hat = sqrtm(sigma_prime) @ O2_prime
+    R_hat = O1_prime @ sqrtm(sigma_prime) # 3x2F * 3x3 = 3x2F
+    S_hat = sqrtm(sigma_prime) @ O2_prime # 3x3 * 3xP = 3xP 
 
     return R_hat, S_hat 
+
+def calculate_Q(R_hat, S_hat):
+
+    return
+
+
+def get_shape_and_motion(R_hat, S_hat, Q):
+    R = R_hat @ Q
+    S = np.linalg.inv(Q) @ S_hat
+    return R, S
