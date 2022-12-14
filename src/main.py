@@ -59,8 +59,8 @@ def main():
     np.savetxt('../results/R.txt', R, fmt='%.4f')
     np.savetxt('../results/S.txt', S, fmt='%.4f')
 
-    # drawer = SfM_Drawer(R, S)
-    # drawer.drawSfM()
+    drawer = SfM_Drawer(R, S)
+    drawer.drawSfM()
 
     print('mean-squared error between W_tilde and R*S:',calculate_error(W_tilde, R @ S) )
 

@@ -1,5 +1,5 @@
 import numpy as np
-from NonlinearOptimizer import Solver
+from solver import Solver
 from scipy.linalg import sqrtm 
 
 def get_measurement_matrix(points):
