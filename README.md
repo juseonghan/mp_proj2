@@ -4,13 +4,15 @@ This is an implementation of Tomasi and Kanade's paper, "Shape and Motion from I
 
 
 ## Setting up Dependencies and Running Code
-We used Python 3.6 and conda environment for this project. Please create a conda environment with 
+We used Python 3.6 and conda environment for this project. To run our code and install the dependencies, please run
 
 ```
-conda create --name env_name --file requirements.txt python=3.6
+conda create --name env_name python=3.6
+chmod +x dependencies.sh
+./dependencies.sh
 ```
 
-to install the dependencies. To run our project, go into the src directory and run
+Afterwards, to run our project, go into the src directory and run
 
 ```
 python main.py --data castle --points 800
