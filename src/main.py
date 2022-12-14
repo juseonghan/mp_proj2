@@ -3,7 +3,6 @@ import argparse
 from util import *
 from reader import *
 from feature_matcher import match_feature_points
-from point_cloud import SfM_Drawer
 
 def main():
 
@@ -58,9 +57,6 @@ def main():
     print('--------- results saved to ../results/ ---------')
     np.savetxt('../results/R.txt', R, fmt='%.4f')
     np.savetxt('../results/S.txt', S, fmt='%.4f')
-
-    drawer = SfM_Drawer(R, S)
-    drawer.drawSfM()
 
     print('mean-squared error between W_tilde and R*S:',calculate_error(W_tilde, R @ S) )
 
