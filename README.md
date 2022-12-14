@@ -30,14 +30,16 @@ to run Structure from Motion using the castle dataset or
 python src/main.py --data medusa --points 800
 ```
 
-to run SfM using the medusa video. In order to visualize the results, run `visualize.py` and specify visualization of motion or of shape. For example, 
+to run SfM using the medusa video. In order to visualize the results, run `visualize.py` and specify visualization of dataset and motion or of shape. For example, 
 
 ```
-python src/visualize.py --data motion
+python src/visualize.py --dataset medusa --type R
 ```
 
-and 
+would visualize the camera motion for the medusa dataset, whereas
 
 ```
-python src/visualize.py --data shape
+python src/visualize.py --data castle --type S
 ```
+
+would visualize the shape point cloud for the castle dataset. 

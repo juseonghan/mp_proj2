@@ -72,6 +72,19 @@ def match_feature_points(frames, input, P):
         flann = cv.FlannBasedMatcher(index_params, search_params)
         matches = flann.knnMatch(desc1, desc2, k=2)
 
+        # if i == 0:
+        #     ratio_thresh = 0.7
+        #     good_matches = []
+        #     for m,n in matches:
+        #         if m.distance < ratio_thresh * n.distance:
+        #             good_matches.append(m)
+        #     #-- Draw matches
+        #     img_matches = np.empty((max(img1.shape[0], img2.shape[0]), img1.shape[1]+img2.shape[1], 3), dtype=np.uint8)
+        #     cv.drawMatches(img1, kp1, img2, kp2, good_matches, img_matches, flags=cv.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
+        #     #-- Show detected matches
+        #     plt.imshow('Good Matches', img_matches)
+        #     plt.show()
+
         # # sort matches by best
         # matches = sorted(matches, key= lambda x:x.distance)
 

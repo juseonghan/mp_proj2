@@ -20,7 +20,7 @@ class SfM_Drawer:
         return camera_poses
 
     def drawSfM(self):
-        if self.type == 'shape':
+        if self.type == 'S':
             P = int(self.data.shape[1])
             S_T = self.data.T
             pcd = o3d.geometry.PointCloud()

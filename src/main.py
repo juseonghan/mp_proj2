@@ -55,8 +55,11 @@ def main():
     # print(S)
 
     print('--------- results saved to ../results/ ---------')
-    np.savetxt('../results/R.txt', R, fmt='%.4f')
-    np.savetxt('../results/S.txt', S, fmt='%.4f')
+
+    text_nameR = "R_" + args.data + ".txt"
+    text_nameS = "S_" + args.data + ".txt"
+    np.savetxt('../results/' + text_nameR, R, fmt='%.4f')
+    np.savetxt('../results/' + text_nameS, S, fmt='%.4f')
 
     print('mean-squared error between W_tilde and R*S:',calculate_error(W_tilde, R @ S) )
 
