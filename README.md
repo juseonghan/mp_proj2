@@ -1,6 +1,6 @@
 # Machine Perception Project 2: Structure from Motion by John Han and Ashley Tsang
 
-(someday we can write some sort of introduction)
+This is an implementation of Tomasi and Kanade's paper, "Shape and Motion from Image Streams under Orthography: a Factorization Method." 
 
 NOTE FOR JOHN/ASHLEY: prior to pushing, please run 
 
@@ -8,7 +8,6 @@ NOTE FOR JOHN/ASHLEY: prior to pushing, please run
 rm requirements.txt
 conda list -e > requirements.txt
 ```
-
 
 to update any conda packages that were installed/uninstalled in the environment.
 
@@ -32,4 +31,3 @@ python main.py --data medusa
 ```
 
 to run SfM using the medusa video. 
-
