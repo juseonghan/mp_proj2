@@ -24,13 +24,13 @@ class SfM_Drawer:
             P = int(self.data.shape[1])
             S_T = self.data.T
             pcd = o3d.geometry.PointCloud()
-            pcd.colors = o3d.utility.Vector3dVector(0.1 + np.zeros((P, 3)))
+            pcd.paint_uniform_color([0.5, 1, 0])
             pcd.points = o3d.utility.Vector3dVector(S_T)
         else:
             camera_poses = self.get_camera_poses()
             F = int(self.data.shape[0]/2)     
             pcd = o3d.geometry.PointCloud()
-            pcd.colors = o3d.utility.Vector3dVector(0.5 * np.ones((F, 3)))
+            pcd.paint_uniform_color([0.5, 1, 0])
             pcd.points = o3d.utility.Vector3dVector(camera_poses)
 
         o3d.visualization.draw_geometries([pcd])
