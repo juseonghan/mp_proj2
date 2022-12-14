@@ -21,13 +21,13 @@ conda create --name (env name) --file requirements.txt python=3.6
 to install the dependencies. To run our project, type
 
 ```
-python src/main.py --data castle
+python src/main.py --data castle --points 800
 ```
 
 to run Structure from Motion using the castle dataset or
 
 ```
-python src/main.py --data medusa
+python src/main.py --data medusa --points 800
 ```
 
 to run SfM using the medusa video. In order to visualize the results, run `visualize.py` and specify visualization of motion or of shape. For example, 

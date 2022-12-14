@@ -1,6 +1,5 @@
 import numpy as np
 from solver import Solver
-from scipy.linalg import sqrtm 
 
 def get_measurement_matrix(points):
 
