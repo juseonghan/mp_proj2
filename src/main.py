@@ -1,4 +1,5 @@
 import argparse
+import time
 
 from util import *
 from reader import *
@@ -21,6 +22,7 @@ def main():
         return
 
     # start! 
+    start = time.time()
     np.set_printoptions(precision=3, suppress=True)
 
     print('--------- matching points ---------')
@@ -53,8 +55,11 @@ def main():
     # print(R)
     print("Shape matrix S shape:", S.shape)
     # print(S)
+    end = time.time()
 
     print('--------- results saved to ../results/ ---------')
+
+    print("Time elapsed:", str(end - start), "seconds")
 
     text_nameR = "R_" + args.data + ".txt"
     text_nameS = "S_" + args.data + ".txt"
